@@ -1,12 +1,11 @@
-insert into dm_rfm_segments 
-select u.id as user_id,
+insert into analysis.dm_rfm_segments (user_id, recency, frequency, monetary_value)
+select trf.user_id,
 	trr.recency, 
 	trf.frequency,
 	trmv.monetary_value
-from users u
-join tmp_rfm_frequency trf on u.id = trf.user_id 
-join tmp_rfm_monetary_value trmv on u.id = trmv.user_id 
-join tmp_rfm_recency trr on u.id = trr.user_id ;
+from analysis.tmp_rfm_frequency trf 
+join analysis.tmp_rfm_monetary_value trmv on trf.user_id = trmv.user_id 
+join analysis.tmp_rfm_recency trr on trf.user_id = trr.user_id ;
 
 0	5	3	4
 1	2	3	3
